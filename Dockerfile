@@ -4,7 +4,7 @@ RUN npm install --global pnpm@11.25.0
 COPY web/package.json web/pnpm-lock.yaml web/pnpm-workspace.yaml ./web/
 RUN pnpm --dir web install --frozen-lockfile
 COPY web ./web
-ARG VITE_ANDROID_DOWNLOAD_URL=""
+ARG VITE_ANDROID_DOWNLOAD_URL="https://github.com/PedroSetti/SetRastrear/releases/download/v1.1.1/RastrearMB-debug.apk"
 ENV VITE_HOSTED_BUILD=true
 ENV VITE_ANDROID_DOWNLOAD_URL=$VITE_ANDROID_DOWNLOAD_URL
 RUN pnpm --dir web run build

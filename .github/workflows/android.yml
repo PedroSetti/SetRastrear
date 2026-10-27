@@ -6,6 +6,7 @@ on:
         description: Origem HTTPS definitiva do backend ou do painel com proxy /api
         required: true
         type: string
+        default: https://setrastrear.onrender.com
 permissions:
   contents: read
 jobs:

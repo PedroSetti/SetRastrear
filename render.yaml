@@ -1,19 +1,16 @@
-# Recursos pagos: confira planos e valores na sua conta antes de confirmar.
+# Testes gratuitos. PostgreSQL expira em 30 dias.
+# Recursos existentes foram criados por MCP; importe-os antes de aplicar um Blueprint.
 services:
   - type: web
-    name: setrastrear-api
-    runtime: python
+    name: setrastrear
+    runtime: docker
     region: virginia
-    plan: starter
-    rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    preDeployCommand: python -m alembic upgrade head
-    startCommand: python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1 --no-proxy-headers
+    plan: free
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
-    autoDeployTrigger: checksPass
+    autoDeployTrigger: commit
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.12.10
       - key: APP_ENV
         value: production
       - key: JWT_SECRET
@@ -22,13 +19,11 @@ services:
         fromDatabase:
           name: setrastrear-db
           property: connectionString
-      - key: CORS_ORIGINS
-        sync: false
-      - key: PUBLIC_URL
-        sync: false
 databases:
   - name: setrastrear-db
     region: virginia
-    databaseName: setrastrear
-    user: setrastrear
-    plan: basic-256mb
+    databaseName: setrastrear_db
+    user: setrastrear_db_user
+    plan: free
+    postgresMajorVersion: '16'
+    ipAllowList: []

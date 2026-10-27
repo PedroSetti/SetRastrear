@@ -35,3 +35,12 @@ Migration 002 aplicada ao SQLite ativo, removendo a expiração dos códigos pen
 - Android 1.1.0 compilado em debug, QA, release e AAB. Servidor definido por RMB_SERVER_URL; conexão automática após consentimento e descarte de credencial ao mudar de origem.
 - APK de teste desta sessão usa explicitamente o endereço Cloudflare existente. O servidor permanente ainda depende da confirmação do workspace e conclusão do deploy. Não foi embutida uma URL permanente inexistente.
 - Dockerfile da raiz preparado para hospedar painel e API juntos, sem necessidade de Netlify; não foi executado localmente por ausência de Docker.
+
+## Publicação Render e Android 1.1.1
+
+- Serviço setrastrear no Render, plano free, região Virginia, publicado em https://setrastrear.onrender.com. Deploy inicial confirmado como live.
+- PostgreSQL 16 free disponível na mesma região/workspace; conexão privada e acesso externo bloqueado. Expiração informada pelo provedor: 26/11/2026.
+- URL pública respondeu HTTP 200 para painel e health check.
+- Teste integrado HTTPS real aprovado: cadastro, login/cookie, refresh, pareamento sem expiração, confirmação por credencial do aparelho, envio de ponto sintético, consulta e exclusão de histórico, pausa e revogação. Conta e dados sintéticos removidos no fim.
+- APKs debug/QA e release APK/AAB 1.1.1 compilados com Render e sem campo manual de servidor. Release continua sem assinatura de produção. Ainda falta homologação em aparelho Android físico.
+- Instaladores preparados para GitHub Release v1.1.1; nenhum segredo, banco local ou keystore de produção integra o repositório.

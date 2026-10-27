@@ -1,16 +1,20 @@
 # SetRastrear • Rastrear MB
 
-**Hospedagem permanente e conexão automática do Android:** siga [docs/DEPLOY.md](docs/DEPLOY.md). Versão 1.1.0. Os trechos de teste local abaixo são opcionais.
+**Hospedagem permanente e conexão automática do Android:** siga [docs/DEPLOY.md](docs/DEPLOY.md). Versão 1.1.1. Os trechos de teste local abaixo são opcionais.
 
 Plataforma executável de localização consentida: API FastAPI, painel React/TypeScript/Leaflet e Android Kotlin/Compose. O aparelho confirma cada vínculo, mostra uma notificação persistente durante o compartilhamento e pode interrompê-lo. Não há rastreamento oculto.
 
-## Teste pela Cloudflare
+## Serviço publicado no Render
 
-Endereço da sessão de teste de 27/10/2026: **https://nokia-loop-placement-lover.trycloudflare.com**.
+**Painel e API: https://setrastrear.onrender.com**
 
-O APK de teste desta sessão conecta automaticamente a esse endereço depois do consentimento. O endereço é temporário; para hospedagem permanente, compile o APK com RMB_SERVER_URL conforme docs/DEPLOY.md. Não é uma VM hospedada na Cloudflare: o túnel fornece HTTPS público para a API e painel executados no computador. O computador, backend, origem HTTP e `cloudflared` precisam continuar ativos. Não exige certificado de desenvolvimento no celular.
+**Instaladores Android: https://github.com/PedroSetti/SetRastrear/releases/tag/v1.1.1**
 
-Crie sua conta pelo painel; não existe senha administrativa padrão. O banco começa sem dispositivos e sem localizações de demonstração. Para obter um novo endereço, veja `docs/CLOUDFLARE.md`.
+O servidor executa no Render e pode ser acessado com o computador desligado. O APK 1.1.1 conecta automaticamente a esse endereço depois do consentimento, sem digitação de URL. A URL pública padrão está em `android/gradle.properties`; é possível substituí-la por variável de ambiente RMB_SERVER_URL. O vínculo e a ativação da localização continuam exigindo autorização explícita.
+
+Plano gratuito de testes: o serviço pode suspender por inatividade e demorar ao reabrir. O PostgreSQL gratuito desta sessão expira em **26/11/2026**; exporte seus dados ou altere o plano antes disso. Não houve migração automática das contas/dispositivos do SQLite/Cloudflare: cadastre a conta no servidor novo e faça novo pareamento no APK atualizado.
+
+O deploy foi feito diretamente no workspace My Workspace. `render.yaml` descreve a mesma arquitetura para reprodução; não inicie um Blueprint paralelo sem importar os recursos existentes. Netlify continua disponível como alternativa de painel via `docs/DEPLOY.md`. Cloudflare passa a ser uma opção secundária de desenvolvimento, documentada em `docs/CLOUDFLARE.md`.
 
 ## 1. Requisitos
 

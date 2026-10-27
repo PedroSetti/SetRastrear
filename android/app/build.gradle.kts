@@ -1,7 +1,7 @@
 import java.net.URI
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose") }
 // A URL é configuração pública; não inclua tokens ou senhas.
-val serverUrl = providers.gradleProperty("RMB_SERVER_URL").orElse(providers.environmentVariable("RMB_SERVER_URL")).orElse("").get().trimEnd('/')
+val serverUrl = providers.environmentVariable("RMB_SERVER_URL").orElse(providers.gradleProperty("RMB_SERVER_URL")).orElse("").get().trimEnd('/')
 if (serverUrl.isNotEmpty()) {
  val endpoint = URI(serverUrl)
  require(endpoint.scheme == "https" && endpoint.host != null && endpoint.userInfo == null && endpoint.query == null && endpoint.fragment == null && endpoint.path.isNullOrEmpty()) { "RMB_SERVER_URL deve ser uma origem HTTPS sem caminho, senha ou token" }
@@ -12,7 +12,7 @@ if (gradle.startParameter.taskNames.any { it.contains("Release", ignoreCase = tr
 android {
  namespace = "br.com.setrastrear.mobile"
  compileSdk = 35
- defaultConfig { applicationId = "br.com.setrastrear.mobile"; minSdk = 26; targetSdk = 35; versionCode = 2; versionName = "1.1.0"; buildConfigField("String", "SERVER_URL", "\"$serverUrl\"") }
+ defaultConfig { applicationId = "br.com.setrastrear.mobile"; minSdk = 26; targetSdk = 35; versionCode = 3; versionName = "1.1.1"; buildConfigField("String", "SERVER_URL", "\"$serverUrl\"") }
  buildFeatures { compose = true; buildConfig = true }
  compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
  kotlinOptions { jvmTarget = "17" }

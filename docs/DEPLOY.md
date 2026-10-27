@@ -4,7 +4,9 @@ Repositório: https://github.com/PedroSetti/SetRastrear
 
 ## Arquitetura
 
-GitHub armazena o código e executa a CI. Netlify hospeda o painel React e encaminha `/api` ao FastAPI no Render. PostgreSQL fica no Render. Android usa a origem HTTPS configurada no build. O computador pode ser desligado após a publicação efetiva nesses provedores.
+O deploy desta sessão está em **https://setrastrear.onrender.com**, com painel React e API FastAPI no mesmo serviço Docker gratuito e PostgreSQL gratuito na rede privada. O computador pode ficar desligado. O app Android 1.1.1 tem esse endereço público como padrão.
+
+GitHub armazena código e executa CI. Netlify é uma alternativa opcional: hospeda o painel e encaminha `/api` ao FastAPI. Os passos Netlify abaixo só são necessários se optar por separar o painel.
 
 GitHub Pages não executa Uvicorn/PostgreSQL. Netlify estático também não executa esse backend Python contínuo. O projeto permanece FastAPI, com `render.yaml` para o servidor e `netlify.toml` para o painel. Não há dependência de Cloudflare no deploy permanente.
 
@@ -12,7 +14,7 @@ GitHub Pages não executa Uvicorn/PostgreSQL. Netlify estático também não exe
 
 O `Dockerfile` da raiz compila o painel e o serve no mesmo processo FastAPI, via `WEB_DIST=/app/web/dist`. O navegador e o Android usam a mesma origem HTTPS, e a variável automática `RENDER_EXTERNAL_URL` autoriza essa origem exata. Não é necessário Netlify nessa opção. Crie um web service Docker a partir da raiz do repositório, configure `DATABASE_URL`, `APP_ENV=production` e um `JWT_SECRET` aleatório de pelo menos 32 caracteres. As migrations executam antes do Uvicorn, usando a porta `PORT` do provedor.
 
-Plano gratuito só para testes: a API pode suspender por inatividade, e o PostgreSQL gratuito expira após 30 dias. Revise limites de uso e exporte os dados antes da expiração. O Blueprint `render.yaml` continua sendo a opção separada de API com planos pagos explicitamente indicados; não confunda com a seleção gratuita manual.
+Plano gratuito só para testes: a API pode suspender por inatividade, e o PostgreSQL gratuito expira após 30 dias. Revise limites de uso e exporte os dados antes da expiração. O Blueprint `render.yaml` agora descreve a mesma arquitetura gratuita. O serviço desta sessão é gerenciado diretamente, não por Blueprint; não aplique em paralelo para evitar recursos duplicados.
 
 ## 1. Enviar ao GitHub
 
@@ -42,7 +44,7 @@ Anote a URL real do site, por exemplo `https://SEU-SITE.netlify.app`. O primeiro
 
 No Render, use New → Blueprint e selecione o repositório. O `render.yaml` declara API, PostgreSQL persistente, health check, segredo JWT gerado pelo provedor, build e migrations anteriores ao deploy.
 
-**O Blueprint seleciona planos pagos** para API e banco persistente. Confira os valores na sua conta antes de confirmar a criação. Esta configuração preparada não cria nem paga recursos por conta própria. Se escolher outros planos, revise suas restrições de suspensão, expiração e pre-deploy.
+**O Blueprint seleciona planos gratuitos de testes**, com Docker para painel+API e PostgreSQL com expiração de 30 dias. Migrations executam na entrada do container porque pre-deploy separado exige plano compatível. Confira os limites da conta; não é ambiente de produção comercial permanente.
 
 Preencha quando o Blueprint solicitar:
 
@@ -104,7 +106,7 @@ cd android
 .\gradlew.bat assembleDebug assembleQa assembleRelease bundleRelease
 ```
 
-Alternativa: `-PRMB_SERVER_URL=https://SEU-BACKEND.onrender.com` no comando Gradle. Release sem URL falha explicitamente, em vez de embutir um túnel temporário. Debug sem URL mostra erro de configuração e não conecta a um endereço inventado. O APK desta sessão foi compilado explicitamente com o túnel atual para continuar os testes até que o endereço permanente exista.
+Alternativa: `-PRMB_SERVER_URL=https://SEU-BACKEND.onrender.com` no comando Gradle. A URL padrão versionada em android/gradle.properties é https://setrastrear.onrender.com. A variável de ambiente RMB_SERVER_URL tem prioridade e permite substituí-la. Se ambas forem removidas, release falha e debug mostra erro de configuração. O APK desta sessão já usa Render, sem depender de túnel.
 
 No GitHub, Actions → Compilar Android → Run workflow → informe `server_url`. Ao concluir, baixe `RastrearMB-Android`. Debug e QA são instaláveis; release APK/AAB exigem sua assinatura privada, conforme README. Nenhuma chave privada é enviada ao GitHub.
 
