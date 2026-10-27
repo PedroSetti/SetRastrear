@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: rastrear
+      POSTGRES_DB: rastrear
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?configure .env}
+    volumes: ["postgres:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rastrear"]
+      interval: 5s
+      retries: 10
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://rastrear:${POSTGRES_PASSWORD}@db/rastrear
+    depends_on:
+      db: {condition: service_healthy}
+  web:
+    build: ./web
+    ports: ["8443:443"]
+    volumes: ["./certs-dev:/etc/nginx/certs:ro"]
+    depends_on: [backend]
+volumes:
+  postgres:
