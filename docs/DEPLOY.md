@@ -8,6 +8,12 @@ GitHub armazena o código e executa a CI. Netlify hospeda o painel React e encam
 
 GitHub Pages não executa Uvicorn/PostgreSQL. Netlify estático também não executa esse backend Python contínuo. O projeto permanece FastAPI, com `render.yaml` para o servidor e `netlify.toml` para o painel. Não há dependência de Cloudflare no deploy permanente.
 
+### Alternativa: painel e API juntos no Render
+
+O `Dockerfile` da raiz compila o painel e o serve no mesmo processo FastAPI, via `WEB_DIST=/app/web/dist`. O navegador e o Android usam a mesma origem HTTPS, e a variável automática `RENDER_EXTERNAL_URL` autoriza essa origem exata. Não é necessário Netlify nessa opção. Crie um web service Docker a partir da raiz do repositório, configure `DATABASE_URL`, `APP_ENV=production` e um `JWT_SECRET` aleatório de pelo menos 32 caracteres. As migrations executam antes do Uvicorn, usando a porta `PORT` do provedor.
+
+Plano gratuito só para testes: a API pode suspender por inatividade, e o PostgreSQL gratuito expira após 30 dias. Revise limites de uso e exporte os dados antes da expiração. O Blueprint `render.yaml` continua sendo a opção separada de API com planos pagos explicitamente indicados; não confunda com a seleção gratuita manual.
+
 ## 1. Enviar ao GitHub
 
 Execute dentro da pasta SetRastrear (não na pasta que contém outputs):
