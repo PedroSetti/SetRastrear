@@ -44,3 +44,12 @@ Migration 002 aplicada ao SQLite ativo, removendo a expiração dos códigos pen
 - Teste integrado HTTPS real aprovado: cadastro, login/cookie, refresh, pareamento sem expiração, confirmação por credencial do aparelho, envio de ponto sintético, consulta e exclusão de histórico, pausa e revogação. Conta e dados sintéticos removidos no fim.
 - APKs debug/QA e release APK/AAB 1.1.1 compilados com Render e sem campo manual de servidor. Release continua sem assinatura de produção. Ainda falta homologação em aparelho Android físico.
 - Instaladores preparados para GitHub Release v1.1.1; nenhum segredo, banco local ou keystore de produção integra o repositório.
+
+## Android 1.2.0 — 28/10/2026
+
+- Compartilhamento com foreground service sem prazo automático; START_STICKY condicionado à ativação e permissões, sem reinícios por alarme.
+- Falha de rede preserva a intenção de compartilhar; reconexão progressiva até 60 segundos. Pausa interrompe localmente e sincroniza ao reconectar.
+- Notificação visível e retomada opcional após reinício, com permissão de localização em segundo plano concedida pelo próprio usuário. Parada forçada e revogação são respeitadas.
+- Build debug/QA/release/AAB e lintDebug/lintVitalRelease aprovados. Lint possui avisos de versões de dependências, target SDK e uso intencional de commit para persistir pausa antes de encerrar o serviço.
+- Não foram executados teste físico de 24 horas, reinício de aparelho nem testes em fabricantes diferentes. Compilar não comprova autonomia ou continuidade em todos os Androids.
+- Hospedagem continua gratuita por decisão do usuário. Nenhum plano pago contratado; expiração do PostgreSQL em 26/11/2026 e suspensão por inatividade do web service permanecem.

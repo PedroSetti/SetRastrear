@@ -1,6 +1,6 @@
 # SetRastrear • Rastrear MB
 
-**Hospedagem permanente e conexão automática do Android:** siga [docs/DEPLOY.md](docs/DEPLOY.md). Versão 1.1.1. Os trechos de teste local abaixo são opcionais.
+**Hospedagem permanente e conexão automática do Android:** siga [docs/DEPLOY.md](docs/DEPLOY.md). Versão 1.2.0. Os trechos de teste local abaixo são opcionais.
 
 Plataforma executável de localização consentida: API FastAPI, painel React/TypeScript/Leaflet e Android Kotlin/Compose. O aparelho confirma cada vínculo, mostra uma notificação persistente durante o compartilhamento e pode interrompê-lo. Não há rastreamento oculto.
 
@@ -8,13 +8,17 @@ Plataforma executável de localização consentida: API FastAPI, painel React/Ty
 
 **Painel e API: https://setrastrear.onrender.com**
 
-**Instaladores Android: https://github.com/PedroSetti/SetRastrear/releases/tag/v1.1.1**
+**Instaladores Android: https://github.com/PedroSetti/SetRastrear/releases/tag/v1.2.0**
 
-O servidor executa no Render e pode ser acessado com o computador desligado. O APK 1.1.1 conecta automaticamente a esse endereço depois do consentimento, sem digitação de URL. A URL pública padrão está em `android/gradle.properties`; é possível substituí-la por variável de ambiente RMB_SERVER_URL. O vínculo e a ativação da localização continuam exigindo autorização explícita.
+O servidor executa no Render e pode ser acessado com o computador desligado. O APK 1.2.0 conecta automaticamente a esse endereço depois do consentimento, sem digitação de URL. A URL pública padrão está em `android/gradle.properties`; é possível substituí-la por variável de ambiente RMB_SERVER_URL. O vínculo e a ativação da localização continuam exigindo autorização explícita.
 
 Plano gratuito de testes: o serviço pode suspender por inatividade e demorar ao reabrir. O PostgreSQL gratuito desta sessão expira em **26/11/2026**; exporte seus dados ou altere o plano antes disso. Não houve migração automática das contas/dispositivos do SQLite/Cloudflare: cadastre a conta no servidor novo e faça novo pareamento no APK atualizado.
 
 O deploy foi feito diretamente no workspace My Workspace. `render.yaml` descreve a mesma arquitetura para reprodução; não inicie um Blueprint paralelo sem importar os recursos existentes. Netlify continua disponível como alternativa de painel via `docs/DEPLOY.md`. Cloudflare passa a ser uma opção secundária de desenvolvimento, documentada em `docs/CLOUDFLARE.md`.
+
+## Compartilhamento contínuo
+
+Veja [docs/COMPARTILHAMENTO_CONTINUO.md](docs/COMPARTILHAMENTO_CONTINUO.md) para uso com tela bloqueada, retomada opcional após reinício, permissões e limites do Android. O serviço não tem um limite de duração de 24 horas.
 
 ## 1. Requisitos
 
