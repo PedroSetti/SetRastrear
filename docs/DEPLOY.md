@@ -4,7 +4,7 @@ Repositório: https://github.com/PedroSetti/SetRastrear
 
 ## Arquitetura
 
-O deploy desta sessão está em **https://setrastrear.onrender.com**, com painel React e API FastAPI no mesmo serviço Docker gratuito e PostgreSQL gratuito na rede privada. O computador pode ficar desligado. O app Android 1.1.1 tem esse endereço público como padrão.
+O deploy está em **https://setrastrear.onrender.com**, com painel React e API FastAPI no mesmo serviço Docker gratuito e PostgreSQL gratuito na rede privada. O computador pode ficar desligado. O app Android 1.2.0 tem esse endereço público como padrão.
 
 GitHub armazena código e executa CI. Netlify é uma alternativa opcional: hospeda o painel e encaminha `/api` ao FastAPI. Os passos Netlify abaixo só são necessários se optar por separar o painel.
 

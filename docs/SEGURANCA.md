@@ -11,7 +11,7 @@
 
 ## Limitações operacionais explícitas
 
-O ambiente de teste tem um worker, SQLite e túnel temporário. Não foi realizado pentest, varredura completa de dependências, teste de carga, teste instrumental Android ou homologação em aparelhos físicos. Docker/PostgreSQL não foi executado nesta máquina (Docker indisponível). SMTP requer configuração real; não foi enviado e-mail. Sem push: confirmação aparece por polling enquanto o app está aberto, e pedidos de atualização são consultados enquanto o foreground service está ativo. Não há retomada automática após boot/force-stop.
+O ambiente publicado usa um worker e PostgreSQL no Render gratuito. SQLite e túnel temporário são opções de desenvolvimento. Docker foi executado pelo Render; não foi executado localmente. Não foi realizado pentest, teste de carga, teste instrumental Android ou teste físico de 24 horas. SMTP requer configuração real; não foi enviado e-mail. Sem push: confirmação aparece por polling enquanto o app está aberto, e pedidos remotos são consultados enquanto o foreground service está ativo. A partir da versão 1.2.0, a retomada após reiniciar é opcional, exige permissão apropriada e mostra notificação. Parada forçada não é contornada.
 
 A exclusão do banco ativo não apaga cópias de backup já existentes. Defina retenção de logs, backups, criptografia de disco, restauração e procedimento de incidentes para a infraestrutura escolhida. A retenção de localizações inativas exige executar a rotina purge periodicamente.
 

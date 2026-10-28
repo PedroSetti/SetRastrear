@@ -1,6 +1,6 @@
 # SetRastrear • Rastrear MB
 
-**Hospedagem permanente e conexão automática do Android:** siga [docs/DEPLOY.md](docs/DEPLOY.md). Versão 1.2.0. Os trechos de teste local abaixo são opcionais.
+**Hospedagem na nuvem e conexão automática do Android:** siga [docs/DEPLOY.md](docs/DEPLOY.md). Versão 1.2.0. Os trechos de teste local abaixo são opcionais.
 
 Plataforma executável de localização consentida: API FastAPI, painel React/TypeScript/Leaflet e Android Kotlin/Compose. O aparelho confirma cada vínculo, mostra uma notificação persistente durante o compartilhamento e pode interrompê-lo. Não há rastreamento oculto.
 
